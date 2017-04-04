@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<a href="">link</a>
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+<script src="js/jquery-3.2.0.min.js"></script>
+<script>
+    function example() {
+        $("a").attr("href", "allMyHrefsAreTheSameNow.html");
+        $("a").attr({
+            title: "all titles are the same too!",
+            href: "somethingNew.html"
+        });
+        console.log($("a").attr("href"));
+    }
+    $(document).ready(function () {
+        console.log("ready!");
+        example();
+    });
+
+    $(window).on("load", function () {
+        console.log("window loaded");
+    });
+
+    function callAjax1() {
+        $.ajax({
+            url: 'post.php',
+            data: {
+                id: 123
+            },
+            type: "GET",
+            dataType: "json",
+        }).done(function (json) {
+            $("<h1>").text(json.title).appendTo("body");
+            $("<div class=\"content\">").html(json.html).appendTo("body");
+        }).fail(function (xhr, status, errorThrown) {
+            alert("Sorry, there was a problem!");
+            console.log("Error: " + errorThrown);
+            console.log("Status: " + status);
+            console.dir(xhr);
+        }).always(function (xhr, status) {
+            alert("The request is complete!");
+        });
+    }
+
+</script>
+</body>
+</html>
